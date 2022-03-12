@@ -2,10 +2,13 @@
 # -*- coding: utf-8 -*-
 
 #########################      INSTRUCTIONS    FOR     USERS       ##########################
-#####       1.) Set parameters in lines 35 to 61 valid for your data.                   #####
-#####       2.) Set name of your data in lines 69 and 70.                               #####
-#####       3.) In lines 139 to 157 change "/path/to/data/ and set path to your data.   #####
-#####       4.) In lines 161 to 184 check if variables in your netcdf data have the same
+#####       0.) Input data should have shape (timestamps, levels, latitude, longitude), #####
+#####           NetCDF4 format, daily means should be grouped into separate single      #####
+#####           years, i.e. len(timestamps)=365 or 366 (leap years)                     #####
+#####       1.) Set the parameters in lines 38 to 64 valid for your data.               #####
+#####       2.) Set the name of your data in lines 72 and 73.                           #####
+#####       3.) In lines 142 to 160 change "/path/to/data/ and set path to your data.   #####
+#####       4.) In lines 164 to 187 check if variables in your netcdf data have the same
 #####           name as in this code - if not, set the right names of variables.        #####
 #####       5.) If you have data from reanalyses other than ERA5 and/or ERA-Interim, change
 #####           all expressions "ERA5" and/or "ERAI" in the code with adequate ones.    #####
@@ -55,7 +58,7 @@ class KuoEliassen():
     g = 9.81                        # gravitational acceleration in m/s^2
     R_d = 287.                      # gas constant for dry air in J/kgK
     c_p = 1004.                     # specific heat at constant pressure in J/kgK
-    p_0 = 1000.                     # pressure constant in equation for theta (potential temperature)
+    p_0 = 1000.                     # surface pressure constant; needed in PDE for theta (potential temperature)
     N_iterations = 75               # number of iterations for successive overrelaxation (SOR) method for solving elliptic problem
     N_x_global_west = 0             # longitude -180°
     N_x_global_east = 359           # longitude 179°
@@ -67,7 +70,7 @@ class KuoEliassen():
         self.start_year = start_year
         
         self.data_ERA5 = ["era5_{:4d}.nc".format(i) for i in range(1950, 2019)]                    # NetCDF file with 1°x1° resolution data
-        self.data_ERAI = ["erai_new_{:4d}.nc".format(i) for i in range(1979, 2019)]                # NetCDF file with 1°x1° resolution data
+        self.data_ERAI = ["erai_{:4d}.nc".format(i) for i in range(1979, 2019)]                # NetCDF file with 1°x1° resolution data
 
         return
 
