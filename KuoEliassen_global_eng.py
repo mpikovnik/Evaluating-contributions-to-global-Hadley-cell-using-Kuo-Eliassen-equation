@@ -1511,7 +1511,10 @@ class KuoEliassen():
         return lon, lat, pressure, year, diabatic_heating_averaged_yearly, meridion_heat_flux_averaged_yearly, friction_averaged_yearly, meridion_momentum_flux_averaged_yearly, omega_flux_averaged_yearly,\
                theta_flux_averaged_yearly, streamfunction_yearly
 
+
+
 def contributions(reanalysis, area, period, start_year):
+    """Computes contributions of different physical processes to stream-function psi."""
     t1 = time.time()
 
     print("Start of computations: "+ctime())
@@ -1544,4 +1547,5 @@ area = sys.argv[2]
 period = sys.argv[3]
 start_year = sys.argv[4]
 
+# compute contributions
 contributions(reanalysis, area, period, start_year)
